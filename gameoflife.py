@@ -18,6 +18,11 @@ left[30:33,50]=1
 left[32,51]=1
 left[31,52]=1
 
+#glider that is close to the boundary so you can check the torus property
+#left[90:93,20]=1
+#left[92,21]=1
+#left[91,22]=1
+
 #r-pentomino
 left[50:53,50]=1
 left[50,51]=1
@@ -38,15 +43,15 @@ def update(a,b):
 				else:
 					a[x,y]=0
 
+'''Show/plot the current state of the Game, as given in matrix m'''
+def showme(m):
+	plt.matshow(m, fignum=0, cmap='binary')
+	plt.show(block=False)
+	plt.pause(0.05)
+
 
 while(True):
-	plt.matshow(left)
-	plt.show(block=False)
-	plt.pause(1)
-	plt.close()
+	showme(left)
 	update(right,left)
-	plt.matshow(right)
-	plt.show(block=False)
-	plt.pause(1)
-	plt.close()
+	showme(right)
 	update(left,right)
