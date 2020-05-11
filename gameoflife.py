@@ -7,10 +7,21 @@ ydim = 82
 left = np.zeros([xdim,ydim])
 right= np.zeros(left.shape)
 
-left[30:33,50]=1
-
-#get user input
+#todo: get user input
 #initialise left with the desired pattern
+
+#blinker
+left[20:23,10]=1
+
+#glider
+left[30:33,50]=1
+left[32,51]=1
+left[31,52]=1
+
+#r-pentomino
+left[50:53,50]=1
+left[50,51]=1
+left[51,49]=1
 
 '''Update the matrix a, given the current state b, using the Game of Life rules'''
 def update(a,b):
