@@ -28,6 +28,34 @@ left[50:53,50]=1
 left[50,51]=1
 left[51,49]=1
 
+
+# Gosper's Glidergun
+pos_left_stopblock = (5, 10)
+x, y = pos_left_stopblock
+left[x:(x + 2), y:(y + 2)] = 1  # left stop block
+# left side of main part
+left[x:(x + 3), (y + 10)] = 1
+left[x - 1, y + 11] = 1
+left[x + 3, y + 11] = 1
+left[x - 2, (y + 12):(y + 14)] = 1
+left[x + 4, (y + 12):(y + 14)] = 1
+left[x + 1, y + 14] = 1
+left[x - 1, y + 15] = 1
+left[x + 3, y + 15] = 1
+# left side of main part
+left[x:(x+3), y + 16] = 1
+left[x + 1, y + 17] = 1
+left[(x-2):(x+1), (y + 20):(y + 22)] = 1
+left[x - 3, y + 22] = 1
+left[x + 1, y + 22] = 1
+left[(x - 4):(x - 2), y + 24] = 1
+left[(x + 1):(x + 3), y + 24] = 1
+# right stop block
+left[(x - 2):x, (y + 34):(y + 36)] = 1
+
+
+
+
 '''Update the matrix a, given the current state b, using the Game of Life rules'''
 def update(a,b):
 	for x in range(xdim):
