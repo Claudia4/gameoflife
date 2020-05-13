@@ -7,7 +7,6 @@ ydim = 82
 left = np.zeros([xdim, ydim])
 right = np.zeros(left.shape)
 
-
 # initialise left with the desired pattern
 
 # blinker
@@ -113,8 +112,13 @@ elif choice == 4:
 else:
     print("Input not valid.")
 
-while True:
-    showme(left)
-    update(right, left)
-    showme(right)
-    update(left, right)
+with open('n_of_living_cells.txt', 'w') as f:
+    while True:
+        n = int(sum(sum(left)))
+        f.write(str(n) + "\n")
+        showme(left)
+        update(right, left)
+        n = int(sum(sum(right)))
+        f.write(str(n) + "\n")
+        showme(right)
+        update(left, right)
