@@ -1,11 +1,23 @@
+'''
+Game of Life Simluation by Annika Hennes and Claudia Bischoff
+
+Compile: No compilation needed
+Run: python3 gameoflife.py
+    input the number of the desired starting pattern when prompted
+    to abort the program, close the plotting window
+'''
+
 import numpy as np
 import matplotlib.pyplot as plt
 
 xdim = 101
 ydim = 82
 
+# The grid for the game of life is stored as an array containing the numbers 0 or 1
+# we use two grids (left and right) in order to do the simultaneous updates of all cells correctly, alternating from one grid to the other
 left = np.zeros([xdim, ydim])
 right = np.zeros(left.shape)
+
 
 # initialise left with the desired pattern
 
@@ -14,7 +26,6 @@ def init_blinker(left):
     left[20:23, 10] = 1
     return left
 
-
 # glider
 def init_glider(left):
     left[30:33, 50] = 1
@@ -22,20 +33,12 @@ def init_glider(left):
     left[31, 52] = 1
     return left
 
-
-# glider that is close to the boundary so you can check the torus property
-# left[90:93,20]=1
-# left[92,21]=1
-# left[91,22]=1
-
-
 # r-pentomino
 def init_r_pentomino(left):
     left[50:53, 50] = 1
     left[50, 51] = 1
     left[51, 49] = 1
     return left
-
 
 # Gosper's Glidergun
 def init_gospers_glidergun(left):
@@ -76,18 +79,16 @@ def init_bunnies(left):
     return left
 
 '''Update the matrix a, given the current state b, using the Game of Life rules'''
-
-
 def update(a, b):
     for x in range(xdim):
         for y in range(ydim):
-            if (b[x, y] == 0):
+            if (b[x, y] == 0): #cetre cell is dead
                 if (b[x - 1, y - 1] + b[x - 1, y] + b[x - 1, (y + 1) % ydim] + b[x, y - 1] + b[x, (y + 1) % ydim] + b[
                     (x + 1) % xdim, y - 1] + b[(x + 1) % xdim, y] + b[(x + 1) % xdim, (y + 1) % ydim] == 3):
                     a[x, y] = 1
                 else:
                     a[x, y] = 0
-            else:  # b[x,y]=1
+            else:  # b[x,y]=1 cetre cell is alive
                 if (b[x - 1, y - 1] + b[x - 1, y] + b[x - 1, (y + 1) % ydim] + b[x, y - 1] + b[x, (y + 1) % ydim] + b[
                     (x + 1) % xdim, y - 1] + b[(x + 1) % xdim, y] + b[(x + 1) % xdim, (y + 1) % ydim] == 2 or b[
                     x - 1, y - 1] + b[x - 1, y] + b[x - 1, (y + 1) % ydim] + b[x, y - 1] + b[x, (y + 1) % ydim] + b[
@@ -98,14 +99,13 @@ def update(a, b):
 
 
 '''Show/plot the current state of the Game, as given in matrix m'''
-
-
 def showme(m):
     plt.matshow(m, fignum=0, cmap='binary')
     plt.show(block=False)
     plt.pause(0.05)
 
-
+# The acutal simulation starts here
+# First get the user input and initialise the grid, using the above init functions
 print("Patterns:\n"
       "(1) Blinker\n"
       "(2) Glider\n"
@@ -126,6 +126,8 @@ elif choice == 5:
 else:
     print("Input not valid.")
 
+# run the simulation by updating from left to right and from right to left in an alternating fashion
+# in between the updates, write the number of living cells to a file and show the current state in a plot
 with open('n_of_living_cells.txt', 'w') as f:
     while True:
         n = int(sum(sum(left)))
