@@ -63,6 +63,17 @@ def init_gospers_glidergun(left):
     left[(x - 2):x, (y + 34):(y + 36)] = 1
     return left
 
+#bunnies
+def init_bunnies(left):
+    x, y = [20,30]
+    left[x,y]=1
+    left[x+2,y+1:y+3]=1
+    left[x+6,y:y+2]=1
+    left[x+1,y+3]=1
+    left[x+3,y+3]=1
+    left[x+5,y+2]=1
+    left[x+7,y+2]=1
+    return left
 
 '''Update the matrix a, given the current state b, using the Game of Life rules'''
 
@@ -99,7 +110,8 @@ print("Patterns:\n"
       "(1) Blinker\n"
       "(2) Glider\n"
       "(3) R Pentomino\n"
-      "(4) Glidergun")
+      "(4) Glidergun\n"
+      "(5) Bunnies")
 choice = int(input("Choose one of the above patterns using the respective number:"))
 if choice == 1:
     left = init_blinker(left)
@@ -109,6 +121,8 @@ elif choice == 3:
     left = init_r_pentomino(left)
 elif choice == 4:
     left = init_gospers_glidergun(left)
+elif choice == 5:
+    left = init_bunnies(left)
 else:
     print("Input not valid.")
 
